@@ -19,5 +19,16 @@ function divide(num1, num2){
 }
 
 function operate(opr, operand1, operand2){
-
+    let result = 0;
+    switch(opr){
+        case '+': result = add(operand1,operand2);
+        break;
+        case '-': result = subtract(operand1,operand2);
+        break;
+        case '*': result = multiply(operand1,operand2);
+        break;
+        case '/': result = divide(operand1,operand2);
+        break;
+    }
+    return result;
 }
