@@ -32,3 +32,15 @@ function operate(opr, operand1, operand2){
     }
     return result;
 }
+
+let numBtns = document.querySelectorAll('.num-btn');
+const display = document.querySelector('#display');
+
+numBtns.forEach(numBtn=>{
+    numBtn.addEventListener('click',()=>{
+        if(display.innerText=='000'){
+            display.innerText = '';    
+        }
+        display.innerText = display.innerText + numBtn.dataset.num;
+    });
+})

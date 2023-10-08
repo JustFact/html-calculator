@@ -9,7 +9,7 @@ body{
   background-color: rgb(37, 37, 37);
 }
 
-.display{
+#display{
   color: antiquewhite;
   font-size: 32px;
 }
