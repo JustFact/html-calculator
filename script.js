@@ -1,7 +1,7 @@
 let operandLeft = 0;
 let operandRight = 0;
 let operation = '';
-let newOperand = false;
+let newOperand = true;
 let expression = [];
 
 function add(num1, num2){
@@ -36,7 +36,6 @@ function operate(opr, operand1, operand2){
 }
 
 function makeExpression(e){
-    console.log(e)
     let currentOperand = Number.parseInt(display.innerText);
     let currentOperator = '';
     switch(e.srcElement.dataset.operator){
@@ -45,10 +44,12 @@ function makeExpression(e){
         case '*': currentOperator = '*'; break;
         case '/': currentOperator = '/'; break;
     }
-    expression.push(currentOperand);
-    expression.push(currentOperator);
-    newOperand = true;
-    display.innerText = '';
+    if(!newOperand){
+        expression.push(currentOperand);
+        expression.push(currentOperator);
+        newOperand = true;
+        display.innerText = '';
+    }
 }
 
 let numBtns = document.querySelectorAll('.num-btn');
@@ -56,8 +57,11 @@ const display = document.querySelector('#display');
 
 numBtns.forEach(numBtn=>{
     numBtn.addEventListener('click',()=>{
-        if(display.innerText=='000' || newOperand){
-            display.innerText = '';    
+        if(newOperand){
+            newOperand = false;
+            if(display.innerText=='000'){
+                display.innerText = '';
+            }
         }
         display.innerText = display.innerText + numBtn.dataset.num;
     });
