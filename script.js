@@ -45,11 +45,34 @@ function makeExpression(e){
         case '/': currentOperator = '/'; break;
     }
     if(!newOperand){
+        if(expression[expression.length-1]==0){
+            expression.pop()    
+        }
         expression.push(currentOperand);
         expression.push(currentOperator);
         newOperand = true;
         display.innerText = '';
     }
+}
+
+function cleanExpression(){
+    let expressionLength = expression.length;
+    switch(expression[expressionLength-1]){
+        case '/':
+        case '*': expression.push(1);
+            break;
+        case '+':
+        case '-': expression.push(0);
+    }
+}
+
+function evaluateExpression(){
+    cleanExpression();
+
+}
+
+function solveExpression(){
+    
 }
 
 let numBtns = document.querySelectorAll('.num-btn');
@@ -74,3 +97,7 @@ oprBtns.forEach(opr=>{
         opr.addEventListener('click',makeExpression)   
     }
 })
+
+
+let eql = document.querySelector('#eql');
+eql.addEventListener('click',evaluateExpression)
