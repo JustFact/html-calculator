@@ -59,20 +59,52 @@ function cleanExpression(){
     let expressionLength = expression.length;
     switch(expression[expressionLength-1]){
         case '/':
-        case '*': expression.push(1);
+        case '*': 
+            if(display.innerText != ''){
+                expression.push(Number.parseInt(display.innerText));
+                display.innerText = '';
+            }else{
+                expression.push(1);
+            }
             break;
         case '+':
-        case '-': expression.push(0);
+        case '-': if(display.innerText != ''){
+            expression.push(Number.parseInt(display.innerText));
+            display.innerText = '';
+        }else{
+            expression.push(0);
+        }
     }
 }
 
 function evaluateExpression(){
     cleanExpression();
-
+    solveExpression();
+    display.innerText = expression[0];
 }
 
 function solveExpression(){
+    // 7/8*9-4+5=
+    let currentOperators = ['/','*','+','-'];
     
+    currentOperators.forEach(currentOperator=>{
+        for(let i = 0; i<expression.length; i++){
+            let result = 0;
+            if(expression[i]=='/'){
+                result = expression[i-1]/expression[i+1];
+                expression.splice(i-1,3,result)
+            }else if(expression[i]=='*'){
+                result = expression[i-1]*expression[i+1];
+                expression.splice(i-1,3,result)
+            }else if(expression[i]=='+'){
+                result = expression[i-1]+expression[i+1];
+                expression.splice(i-1,3,result)
+            }else if(expression[i]=='-'){
+                result = expression[i-1]-expression[i+1];
+                expression.splice(i-1,3,result)
+            }
+        }
+    })    
 }
 
 let numBtns = document.querySelectorAll('.num-btn');
