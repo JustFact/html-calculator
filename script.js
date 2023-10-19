@@ -46,7 +46,7 @@ function makeExpression(e){
     }
     if(!newOperand){
         if(expression[expression.length-1]==0){
-            expression.pop()    
+            expression.pop()
         }
         expression.push(currentOperand);
         expression.push(currentOperator);
@@ -84,27 +84,19 @@ function evaluateExpression(){
 }
 
 function solveExpression(){
-    // 7/8*9-4+5=
-    let currentOperators = ['/','*','+','-'];
+    // 6+3*4/2-1+10*2-5=26
+    let currentOperators = ['*','/','-','+']; //DO NOT CHANGE THE ORDER OF OPERATORS
     
     currentOperators.forEach(currentOperator=>{
         for(let i = 0; i<expression.length; i++){
             let result = 0;
-            if(expression[i]=='/'){
-                result = expression[i-1]/expression[i+1];
-                expression.splice(i-1,3,result)
-            }else if(expression[i]=='*'){
-                result = expression[i-1]*expression[i+1];
-                expression.splice(i-1,3,result)
-            }else if(expression[i]=='+'){
-                result = expression[i-1]+expression[i+1];
-                expression.splice(i-1,3,result)
-            }else if(expression[i]=='-'){
-                result = expression[i-1]-expression[i+1];
-                expression.splice(i-1,3,result)
+            if(expression[i]==currentOperator){
+                result = operate(currentOperator,expression[i-1],expression[i+1]);
+                expression.splice(i-1,3,result);
+                i=-1;
             }
         }
-    })    
+    })
 }
 
 let numBtns = document.querySelectorAll('.num-btn');
