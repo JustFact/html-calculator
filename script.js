@@ -1,6 +1,3 @@
-let operandLeft = 0;
-let operandRight = 0;
-let operation = '';
 let newOperand = true;
 let expression = [];
 
@@ -56,8 +53,7 @@ function makeExpression(e){
 }
 
 function cleanExpression(){
-    let expressionLength = expression.length;
-    switch(expression[expressionLength-1]){
+    switch(expression[expression.length-1]){
         case '/':
         case '*': 
             if(display.innerText != ''){
@@ -77,12 +73,6 @@ function cleanExpression(){
     }
 }
 
-function evaluateExpression(){
-    cleanExpression();
-    solveExpression();
-    display.innerText = expression[0];
-}
-
 function solveExpression(){
     // 6+3*4/2-1+10*2-5=26
     let currentOperators = ['*','/','-','+']; //DO NOT CHANGE THE ORDER OF OPERATORS
@@ -99,7 +89,15 @@ function solveExpression(){
     })
 }
 
+function evaluateExpression(){
+    cleanExpression();
+    solveExpression();
+    display.innerText = expression[0];
+}
+
 let numBtns = document.querySelectorAll('.num-btn');
+let oprBtns = document.querySelectorAll('.opr-btn');
+let eql = document.querySelector('#eql');
 const display = document.querySelector('#display');
 
 numBtns.forEach(numBtn=>{
@@ -114,14 +112,10 @@ numBtns.forEach(numBtn=>{
     });
 })
 
-let oprBtns = document.querySelectorAll('.opr-btn');
-
 oprBtns.forEach(opr=>{
     if(opr.dataset.operator != 'IGNR'){
         opr.addEventListener('click',makeExpression)   
     }
 })
 
-
-let eql = document.querySelector('#eql');
 eql.addEventListener('click',evaluateExpression)
