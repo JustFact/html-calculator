@@ -93,6 +93,7 @@ function evaluateExpression(){
     cleanExpression();
     solveExpression();
     display.innerText = expression[0];
+    expression = []
 }
 
 let numBtns = document.querySelectorAll('.num-btn');
