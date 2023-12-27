@@ -96,6 +96,58 @@ function divide(num1, num2){
 //     expression = []
 // }
 
+function operate(e){
+    let expressionLength = expression.length;
+    // console.log(e.srcElement.dataset.operator)
+    if(expressionLength==0){
+        expression.push(Number.parseInt(display.innerText));
+        expression.push(e.srcElement.dataset.operator);
+    }else if(expressionLength==2){
+        solve();
+        expression.push(e.srcElement.dataset.operator);
+    }else if(expressionLength==1){
+    //now the user has entered 2 operands and 1 operator, he can continue as follows:
+    // 1 - click equals and get the answer
+    // 2 - continue making expression, in which case we have to solve expr. first
+        solve();
+    }
+    newOperand = true;
+}
+/*
+operand
+operator
+equal
+
+operand,operand,operand, - type multi digit operand [working]
+operator,operator,operator, - Nothing [the divide operator shows NaN]
+equal,equal,equal, - Nothing [the equal shows 'undefined']
+operand, operator, operator - use same operand and calculate and save the result [working]
+operand, operator, equal - use same operand and calculate [working]
+operand operator, operand - calculate and save the result for next expression
+operand, operator, equal, equal - calculate and show result and do nothing [result is recalculated]
+12 + 7 - 5 * 3 = 42
+*/
+
+
+function solve(){
+    let op2 = Number.parseInt(display.innerText);
+    let opr = expression.pop();
+    let op1 = expression.pop();
+    let result;
+    switch(opr){
+        case '+': result = add(op1,op2);
+        break;
+        case '-': result = subtract(op1,op2);
+        break;
+        case '*': result = multiply(op1,op2);
+        break;
+        case '/': result = divide(op1,op2);
+        break;
+    }
+    display.innerText = result;
+    expression.push(result);
+}
+
 let numBtns = document.querySelectorAll('.num-btn');
 let oprBtns = document.querySelectorAll('.opr-btn');
 let eql = document.querySelector('#eql');
@@ -104,10 +156,8 @@ const display = document.querySelector('#display');
 numBtns.forEach(numBtn=>{
     numBtn.addEventListener('click',()=>{
         if(newOperand){
+            display.innerText = ''
             newOperand = false;
-            if(display.innerText=='000'){
-                display.innerText = '';
-            }
         }
         display.innerText = display.innerText + numBtn.dataset.num;
     });
