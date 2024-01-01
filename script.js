@@ -98,18 +98,16 @@ function divide(num1, num2){
 
 function operate(e){
     let expressionLength = expression.length;
-    // console.log(e.srcElement.dataset.operator)
-    if(expressionLength==0){
+
+    if(expressionLength==0){ //initial expression
         expression.push(Number.parseInt(display.innerText));
         expression.push(e.srcElement.dataset.operator);
+    }else if(expressionLength==1){ //previous expression is solved and stored
+        expression.push(e.srcElement.dataset.operator);    
+        // solve();
     }else if(expressionLength==2){
         solve();
         expression.push(e.srcElement.dataset.operator);
-    }else if(expressionLength==1){
-    //now the user has entered 2 operands and 1 operator, he can continue as follows:
-    // 1 - click equals and get the answer
-    // 2 - continue making expression, in which case we have to solve expr. first
-        solve();
     }
     newOperand = true;
 }
