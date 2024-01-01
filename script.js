@@ -130,10 +130,16 @@ operand, operator, equal, equal - calculate and show result and do nothing [resu
 
 
 function solve(){
-    let op2 = Number.parseInt(display.innerText);
-    let opr = expression.pop();
-    let op1 = expression.pop();
-    let result;
+    let op2,opr,op1,result;
+    let expressionLength = expression.length;
+    if(expressionLength==0 || expressionLength==1){
+        return;
+    }else{   
+        op2 = Number.parseInt(display.innerText);
+        opr = expression.pop();
+        op1 = expression.pop();
+    }
+
     switch(opr){
         case '+': result = add(op1,op2);
         break;
