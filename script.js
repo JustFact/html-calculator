@@ -167,6 +167,7 @@ function solve(){
 let numBtns = document.querySelectorAll('.num-btn');
 let oprBtns = document.querySelectorAll('.opr-btn');
 let eql = document.querySelector('#eql');
+let clrscr = document.querySelector('#clrscr');
 const display = document.querySelector('#display');
 
 numBtns.forEach(numBtn=>{
@@ -186,3 +187,10 @@ oprBtns.forEach(opr=>{
 })
 
 eql.addEventListener('click',solve)
+
+clrscr.addEventListener('click',()=>{
+    display.innerText = '000';
+    newOperand = true;
+    divideByZero = false;
+    expression = [];
+})
