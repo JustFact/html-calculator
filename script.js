@@ -1,5 +1,6 @@
 let newOperand = true;
 let expression = [];
+let divideByZero = false;
 
 function add(num1, num2){
     return num1+num2;
@@ -14,7 +15,12 @@ function multiply(num1, num2){
 }
 
 function divide(num1, num2){
-    return num1/num2
+    if(num2==0){
+        divideByZero = true;
+        return num1;
+    }else{
+        return num1/num2
+    }
 }
 
 // function operate(opr, operand1, operand2){
@@ -148,8 +154,14 @@ function solve(){
         case '/': result = divide(op1,op2);
         break;
     }
-    display.innerText = result;
-    expression.push(result);
+    if(!divideByZero){
+        display.innerText = result;
+        expression.push(result);
+    }else{
+        expression.push(result);
+        alert('NOOO! **Cries in infinity**');
+        divideByZero = false;
+    }
 }
 
 let numBtns = document.querySelectorAll('.num-btn');
