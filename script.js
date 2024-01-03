@@ -158,6 +158,7 @@ function solve(){
         display.innerText = result;
         expression.push(result);
     }else{
+        display.innerText = result;
         expression.push(result);
         alert('NOOO! **Cries in infinity**');
         divideByZero = false;
